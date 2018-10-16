@@ -1,0 +1,4 @@
+pip install bme680
+pip install pyserial
+
+git clone https://github.com/MomsFriendlyRobotCompany/nxp_imu.git & cd nxp_imu & python setup.py install & cd .. & rm -r nxp_imu/
