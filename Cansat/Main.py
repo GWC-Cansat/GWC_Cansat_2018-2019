@@ -1,5 +1,5 @@
 #Import needed modules
-import os, sys, glob, threading, struct, time
+import os, sys, glob, threading, time
 
 #Import module for communications
 import comms
@@ -52,7 +52,7 @@ def worker(sensor):
 		data = sensor.data()
 		
 		#Pack the data with struct
-		packed = struct.pack("I"*len(data), *data)
+		packet = str(data)
 		
 		#Put the packed data into a buffer for sending
 		packetBuffer.append(packed)
