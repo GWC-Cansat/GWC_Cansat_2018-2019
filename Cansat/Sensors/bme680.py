@@ -24,7 +24,7 @@ class sensor:
 	def data():
 		#Return data
 		if sensor.get_sensor_data():
-			return(sensor.data)
+			return([sensor.data.temperature, sensor.data.pressure, sensor.data.humidity])
 	
 	def test():
 		#Self test
