@@ -5,6 +5,7 @@ sensor = IMU()
 
 class sensor:
 	name = "9dof"
+	id = "D"
 	
 	def data():
 		#Return data

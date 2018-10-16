@@ -20,6 +20,7 @@ sensor.select_gas_heater_profile(0)
 #Main class
 class sensor:
 	name = "bme680"
+	id = "B"
 	
 	def data():
 		#Return data

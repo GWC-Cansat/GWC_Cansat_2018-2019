@@ -8,6 +8,7 @@ sensor = serial.Serial(port)
 
 class sensor:
 	name = "gps"
+	id = "G"
 	
 	def data():
 		#Return data

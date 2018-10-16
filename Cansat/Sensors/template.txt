@@ -1,5 +1,6 @@
 class sensor:
 	name = "test1"
+	id = "T"
 	
 	def data():
 		#Return data

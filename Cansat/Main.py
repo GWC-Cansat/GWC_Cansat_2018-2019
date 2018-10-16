@@ -52,7 +52,7 @@ def worker(sensor):
 		data = sensor.data()
 		
 		#Pack the data with struct
-		packet = str(data)
+		packet = str(sensor.id) + str(data)
 		
 		#Put the packed data into a buffer for sending
 		packetBuffer.append(packed)
