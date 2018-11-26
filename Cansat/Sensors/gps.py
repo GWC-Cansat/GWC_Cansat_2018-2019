@@ -1,10 +1,7 @@
-import serial
+import spidev
 
-#Gps serial port
-port = "/dev/ttyUSB0"
-
-#Setup sensor
-sensor = serial.Serial(port)
+spi = spidev.SpiDev()
+spi.open(0,0)
 
 class sensor:
 	name = "gps"
@@ -12,7 +9,12 @@ class sensor:
 	
 	def data():
 		#Return data
-		return(sensor.readline())
+		byte = spi.read(1)
+		data = []
+		while byte != '\n':
+			data.append(byte[0])
+			byte = spi.read(1)
+		return(data)
 	
 	def test():
 		#Self test

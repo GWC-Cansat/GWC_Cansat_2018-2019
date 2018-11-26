@@ -55,7 +55,7 @@ def worker(sensor):
 		packet = str(sensor.id) + str(data)
 		
 		#Put the packed data into a buffer for sending
-		packetBuffer.append(packed)
+		packetBuffer.append(packet)
 		time.sleep(0.0025)
 
 #Loop through the sensors and create a thread for each
