@@ -1,11 +1,6 @@
-class sensor:
-	name = "test1"
-	id = "T"
-	
-	def data():
-		#Return data
-		return([1,2,3,4])
-	
-	def test():
-		#Self test
-		return True
+name = "test1"
+id = "T"
+
+def data():
+	#Return data
+	return([1,2,3,4])

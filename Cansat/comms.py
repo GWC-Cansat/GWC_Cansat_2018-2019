@@ -2,10 +2,11 @@
 import serial
 
 #Raspi serial port
-port = "/dev/ttyUSB0"
+port = "/dev/ttyS0"
 
 #Setup uart connection
 uart = serial.Serial(port)
 
 def send(data):
-	uart.write(data)
+	print(data)
+	uart.write(data + "\r\n")

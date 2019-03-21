@@ -8,7 +8,6 @@ import comms
 sensors = []
 packetBuffer = []
 threads = []
-failed = []
 
 #Puts the Sensors directory into the path
 sys.path.append(os.path.abspath("Sensors/"))
@@ -25,26 +24,6 @@ for sensorFile in glob.glob("Sensors/*.py"):
 	sensor = __import__(sensorFile)
 	sensors.append(sensor)
 
-#Run test to make sure all sensors work
-print("-="*10+"-")
-print("     RUNNING TEST")
-print("-="*10+"-")
-for sensor in sensors:
-	if sensor.sensor.test():
-		print(sensor.sensor.name + " "*(15-len(sensor.sensor.name)) + "OK")
-	else:
-		print(sensor.sensor.name + " "*(15-len(sensor.sensor.name)) + "FAIL")
-		failed.append(sensors.index(sensor))
-print("-="*10+"-")
-
-#Remove sensors that have failed test
-for index in failed:
-	del sensors[index]
-
-#Confirm if they still want to continue in case of failed sensors
-if(input("CONTINUE? Y/N:").lower() != "y" ):
-	quit()
-
 #Sensor thread worker
 def worker(sensor):
 	while True:
@@ -56,12 +35,11 @@ def worker(sensor):
 		
 		#Put the packed data into a buffer for sending
 		packetBuffer.append(packet)
-		time.sleep(0.0025)
 
 #Loop through the sensors and create a thread for each
 for sensor in sensors:
 	#Create the thread and give it a sensor as an argument
-	thread = threading.Thread(target=worker, args=(sensor.sensor,))
+	thread = threading.Thread(target=worker, args=(sensor,))
 	
 	#Make it a daemon so it dies on ctrl+c
 	thread.daemon = True
@@ -78,4 +56,4 @@ while True:
 		data = packetBuffer.pop(0)
 		comms.send(data)
 	except:
-		pass
+		time.sleep(0.1)
