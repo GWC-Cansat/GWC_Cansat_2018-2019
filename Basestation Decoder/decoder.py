@@ -1,9 +1,10 @@
 #Decode the data from the cansat into a usable format
-import json
+import json, pynmea2
 
 #Gps decoder
 def gps(data):
-        return(''.join(str(x) for x in data))
+	data = pynmea2.parse(data[0])
+        return((data.latitude, data.longitude))
 
 #BME680 decoder
 def bme(data):
@@ -15,7 +16,7 @@ def bme(data):
 
 #9Dof decoder
 def dof(data):
-    return(data)
+	return(data)
 
 #Sensor id to decode function
 senToFunc = {
@@ -26,16 +27,16 @@ senToFunc = {
 
 #Main function
 def decode(data):
-    try:
-        #Get the first character as it is an id and remove it from the data
-        id = data[0]
-        data = data[1:]
+	try:
+		#Get the first character as it is an id and remove it from the data
+		id = data[0]
+		data = data[1:]
 
-        #Turn data into list
-        data = json.loads(data)
+		#Turn data into list
+		data = json.loads(data.replace("'","\""))
 
-        #Decode the data based on sensor id
-        func = senToFunc[id]
-        return([id, func(data)])
-    except:
-        return(-1)
+		#Decode the data based on sensor id
+		func = senToFunc[id]
+		return([id, func(data)])
+	except:
+		return(-1)
